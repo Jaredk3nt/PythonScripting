@@ -1,2 +1,2 @@
 # PythonScripting
-Projects in learning python and scripting 
+Projects I have created while learning python and scripting 

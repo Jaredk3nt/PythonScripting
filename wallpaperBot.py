@@ -24,6 +24,7 @@ path.append(date)
 newPath = ''.join(path)
 if not os.path.exists(newPath):
 	os.makedirs(newPath)
+print "Directory created at : ", newPath
 
 #loop over the top posts in wallpapers
 for submission in subreddit.get_hot(limit = 20)\
@@ -42,7 +43,7 @@ for submission in subreddit.get_hot(limit = 20)\
         		fpath.append(fname)
         		#save file under created path
         		Image.open(StringIO(data)).save(''.join(fpath))
-        		#print ''.join(fpath)
+        		print "Saved: ", ''.join(fpath)
     		except:
         		continue
 	else:

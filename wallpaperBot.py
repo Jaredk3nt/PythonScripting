@@ -16,7 +16,7 @@ r = praw.Reddit(user_agent = user_agent)
 r.login(REDDIT_USERNAME, REDDIT_PASS)
 
 #choose subreddit to pull top photos from
-subreddits = [r.get_subreddit("wallpapers"), r.get_subreddit("wallpaper")]
+#subreddits = [r.get_subreddit("wallpapers"), r.get_subreddit("wallpaper")]
 subreddit = r.get_subreddit("wallpapers")
 
 #creating directory for the date and creating path
@@ -32,39 +32,38 @@ if not os.path.exists(newPath):
 files = os.listdir(newPath)
 
 #loop over the top posts in wallpapers
-for subreddit in subreddits:
-    for submission in subreddit.get_hot(limit = 20):
-    	#if they post contains a photo
-    	if submission.url.split('.')[-1] in imageTypes\
-    		or 'imgur' in submission.domain.split('.'):
-    			rq = Request(submission.url)
-        			response = urlopen(rq)
-        			data = response.read()        
-        			try:
-            			im = Image.open(StringIO(data))
-            			im.verify()
-            			#reset list to path
-            			fpath = [newPath]
-            			#get name and type from url
-            			fname = submission.url.split('/')[-1]
-            			fpath.append(fname)
+for submission in subreddit.get_hot(limit = 20):
+	#if they post contains a photo
+	if submission.url.split('.')[-1] in imageTypes\
+		or 'imgur' in submission.domain.split('.'):
+			rq = Request(submission.url)
+        		response = urlopen(rq)
+    			data = response.read()        
+    			try:
+        			im = Image.open(StringIO(data))
+        			im.verify()
+        			#reset list to path
+        			fpath = [newPath]
+        			#get name and type from url
+        			fname = submission.url.split('/')[-1]
+        			fpath.append(fname)
 
-            			finalPath = ''.join(fpath)
-            			#check for duplicates
-            			new = True
-            			if files:
-            				for name in files:
-            					if (fname == name):
-            						new = False
-            						break
-            			
-            			if new:
-            				Image.open(StringIO(data)).save(finalPath)
-            				print "Saved: ", finalPath
+        			finalPath = ''.join(fpath)
+        			#check for duplicates
+        			new = True
+        			if files:
+        				for name in files:
+        					if (fname == name):
+        						new = False
+        						break
+        			
+        			if new:
+        				Image.open(StringIO(data)).save(finalPath)
+        				print "Saved: ", finalPath
 
-        			except:
-            			continue
-    	else:
-    		continue
+    			except:
+        			continue
+	else:
+		continue
 
 

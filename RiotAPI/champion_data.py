@@ -46,6 +46,12 @@ def print_players( blueSide, redSide ):
 	for player in redSide:
 		print "%s - %s" % (player.summoner_name, player.champion)
 
+def get_summoner_data( summoner ):
+	leagues = summoner.leagues()
+	for league in leagues:
+		print league
+
+
 #compare to method for the tuple list or champion data (for win percentage)
 def compare_champion_win_percent( champ1, champ2 ):
 	winP1 = (((champ1[1].wins * 1.0) / champ1[1].games_played) * 100)
@@ -61,6 +67,7 @@ def compare_champion_win_percent( champ1, champ2 ):
 #setup riotapi
 riotapi_setup()
 summoner = get_summoner()
+#get_summoner_data( summoner )
 get_current_game( summoner )
 # championStats = get_champion_stats( summoner )
 # ranked_win_percent( championStats )

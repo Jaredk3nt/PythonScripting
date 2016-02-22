@@ -1,12 +1,14 @@
 from cassiopeia import riotapi
+from key import API_key
 
 def riotapi_setup():
 	riotapi.set_region("NA")
-	riotapi.set_api_key("aa751b44-85aa-447b-ad09-6b004dcf0e8c")
+	api_key = API_key()
+	riotapi.set_api_key(api_key)
 
 def champion_stats( summoner ):
 	statDict = riotapi.get_ranked_stats(summoner, season = None)
-	return statDict	
+	return statDict
 
 def champion_details( champStats ):
 	championName = raw_input("Champion: ").title()
@@ -20,7 +22,7 @@ def champion_details( champStats ):
 
 def calculate_ability( champStats, champion ):
 	#print champStats.to_json()
-	assists = champStats.assists 
+	assists = champStats.assists
 	kills = champStats.kills
 	deaths = champStats.deaths
 	kda = champStats.kda

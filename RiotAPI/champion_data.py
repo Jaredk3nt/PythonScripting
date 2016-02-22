@@ -1,9 +1,11 @@
 from cassiopeia import riotapi
 from cassiopeia.type.core.common import Side
+from key import API_key
 
 def riotapi_setup():
 	riotapi.set_region("NA")
-	riotapi.set_api_key("aa751b44-85aa-447b-ad09-6b004dcf0e8c")
+	api_key = API_key()
+	riotapi.set_api_key(api_key)
 
 def get_summoner():
 	summonerName = raw_input("Summoner name: ")
@@ -62,7 +64,7 @@ def compare_champion_win_percent( champ1, champ2 ):
 	elif winP1 < winP2:
 		return 1
 	else:
-		return 0		
+		return 0
 
 #setup riotapi
 riotapi_setup()

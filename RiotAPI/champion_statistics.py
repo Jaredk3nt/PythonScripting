@@ -1,9 +1,11 @@
 from cassiopeia import riotapi, type.core.common.Queue
+from key import API_key
 import MySQLdb
 
 def setup():
 	riotapi.set_region("NA")
-	riotapi.set_api_key("aa751b44-85aa-447b-ad09-6b004dcf0e8c")
+	api_key = API_key()
+	riotapi.set_api_key(api_key)
 	return MySQLdb.connect("localhost", "testuser", "test123", "CHAMPIONDB")
 
 def create_table( cur ):
@@ -24,7 +26,7 @@ try:
 	lastDate = cur.fetchone()
 	cur.execute(sql_summ)
 	summoner = cur.fetchone
-else: 
+else:
 	print "no last date, pulling all matches."
 	lastDate = -1
 
